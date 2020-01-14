@@ -23,4 +23,5 @@ zip -r "$company.docx" *
 mv "$company.docx" "../$company.docx"
 cd ../
 soffice --headless --convert-to pdf "$company.docx"
+rm "$company.docx"
 rm -r temp
