@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ $# -ne 3 ]
+then
+    echo "What is the name of the cover letter file?"
+    read coverName
+    echo "What company are you applying to?"
+    read company
+    echo "What position are you applying for?"
+    read position
+else
+    coverName=$1
+    company=$2
+    position=$3
+fi
+
+mkdir temp
+unzip "$coverName" -d temp
+cd temp
+sed -i ".bk" -e "s/COMPANY/$company/g;s/POSITION/$position/g" "word/document.xml"
+rm "word/document.xml.bk"
+zip -r "$company.docx" *
+mv "$company.docx" "../$company.docx"
+cd ../
+rm -r temp
